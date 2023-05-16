@@ -75,6 +75,7 @@ abstract class DecodeHelper implements HelperCore {
 
 
     fromJsonLines.add("\n/*\n");
+    fromJsonLines.addAll(checks);
     fromJsonLines.add("\nconfig.checked: ${config.checked}\n");
     fromJsonLines.add("\n*/\n");
 
@@ -93,7 +94,6 @@ abstract class DecodeHelper implements HelperCore {
 
       fromJsonLines.add("\n/*\n");
       fromJsonLines.add(data.toString());
-      fromJsonLines.add("\n*/\n");
 
       for (final fieldName in data.fieldsToSet) {
         sectionBuffer.writeln();
@@ -133,6 +133,7 @@ abstract class DecodeHelper implements HelperCore {
       sectionBuffer
         ..write(fieldKeyMapArg)
         ..write(',);');
+      fromJsonLines.add("\n*/\n");
       fromJsonLines.add(sectionBuffer.toString());
     } else {
       fromJsonLines.addAll(checks);
