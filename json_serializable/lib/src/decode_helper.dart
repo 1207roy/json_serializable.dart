@@ -73,12 +73,6 @@ abstract class DecodeHelper implements HelperCore {
           .where((fe) => data.usedCtorParamsAndFields.contains(fe.name)),
     ).toList();
 
-
-    fromJsonLines.add("\n/*\n");
-    fromJsonLines.addAll(checks);
-    fromJsonLines.add("\nconfig.checked: ${config.checked}\n");
-    fromJsonLines.add("\n*/\n");
-
     if (config.checked) {
       final classLiteral = escapeDartString(element.name);
 
@@ -91,9 +85,6 @@ abstract class DecodeHelper implements HelperCore {
         ..write(checks.join())
         ..write('''
     final val = ${data.content};''');
-
-      fromJsonLines.add("\n/*\n");
-      fromJsonLines.add(data.toString());
 
       for (final fieldName in data.fieldsToSet) {
         sectionBuffer.writeln();
@@ -133,7 +124,6 @@ abstract class DecodeHelper implements HelperCore {
       sectionBuffer
         ..write(fieldKeyMapArg)
         ..write(',);');
-      fromJsonLines.add("\n*/\n");
       fromJsonLines.add(sectionBuffer.toString());
     } else {
       fromJsonLines.addAll(checks);
